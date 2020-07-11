@@ -1,12 +1,17 @@
 name: When a push occurs in the master branch, a private message is sent on the Whatsapp.
-on: [push]
+on:
+  push:
+    branches: 
+      - master
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
-      - name: whatsapp-notify
-        run: echo 'Start!'
+      - uses: actions/checkout@v1
+      - name: install twilio
+        run: pip install twilio
+      - name: run code
+        run: python main.py
         env:
           account_sid: ${{ secrets.account_sid }}
           auth_token: ${{ secrets.auth_token }}
